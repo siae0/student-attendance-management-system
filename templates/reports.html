@@ -1,0 +1,86 @@
+
+{% extends "base.html" %}
+
+{% block title %}Attendance Reports | AttendEase{% endblock %}
+
+{% block content %}
+
+<h2 class="fw-bold">Attendance Reports</h2>
+<p class="text-secondary mb-4">
+    View student-wise attendance performance.
+</p>
+
+<div class="row g-4 mb-4">
+
+    <div class="col-md-4">
+        <div class="stat-card">
+            <p class="text-secondary">Total Records</p>
+            <h2>{{ summary.total_records or 0 }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="stat-card">
+            <p class="text-secondary">Total Present</p>
+            <h2>{{ summary.total_present or 0 }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="stat-card">
+            <p class="text-secondary">Total Absent</p>
+            <h2>{{ summary.total_absent or 0 }}</h2>
+        </div>
+    </div>
+
+</div>
+
+<div class="content-card">
+    <h4 class="mb-3">Student Attendance Summary</h4>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+
+            <thead class="table-light">
+                <tr>
+                    <th>Roll No.</th>
+                    <th>Student Name</th>
+                    <th>Department</th>
+                    <th>Total Classes</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                    <th>Attendance %</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for r in reports %}
+                <tr>
+                    <td>{{ r.roll_no }}</td>
+                    <td>{{ r.student_name }}</td>
+                    <td>{{ r.department }}</td>
+                    <td>{{ r.total_classes }}</td>
+                    <td>{{ r.present }}</td>
+                    <td>{{ r.absent }}</td>
+                    <td>
+                        {% if r.percentage is not none %}
+                            {{ r.percentage }}%
+                        {% else %}
+                            No records
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7" class="text-center">
+                        No student records found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+{% endblock %}

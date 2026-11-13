@@ -1,0 +1,60 @@
+
+{% extends "base.html" %}
+
+{% block title %}Faculty Management | AttendEase{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold">Faculty Management</h2>
+        <p class="text-secondary">Manage faculty information and subjects.</p>
+    </div>
+    <a href="{{ url_for('add_faculty') }}" class="btn btn-primary">
+        + Add Faculty
+    </a>
+</div>
+
+<div class="content-card">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Faculty ID</th>
+                    <th>Faculty Name</th>
+                    <th>Subject</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for f in faculty %}
+                <tr>
+                    <td>{{ f.faculty_id }}</td>
+                    <td>{{ f.faculty_name }}</td>
+                    <td>{{ f.subject }}</td>
+                    <td>{{ f.email or '-' }}</td>
+                    <td>
+                        <form method="POST"
+                              action="{{ url_for('delete_faculty', faculty_id=f.faculty_id) }}"
+                              onsubmit="return confirm('Delete this faculty member?');">
+                            <button class="btn btn-danger btn-sm" type="submit">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="text-center text-secondary">
+                        No faculty records found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

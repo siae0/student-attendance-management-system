@@ -1,0 +1,45 @@
+
+{% extends "base.html" %}
+
+{% block title %}Add Faculty | AttendEase{% endblock %}
+
+{% block content %}
+
+<h2 class="fw-bold mb-2">Add New Faculty</h2>
+<p class="text-secondary mb-4">Enter faculty details below.</p>
+
+<div class="content-card">
+    <form method="POST" action="{{ url_for('add_faculty') }}">
+
+        <div class="mb-3">
+            <label class="form-label">Faculty Name</label>
+            <input type="text" name="faculty_name"
+                   class="form-control" required
+                   placeholder="Enter faculty name">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Subject</label>
+            <input type="text" name="subject"
+                   class="form-control" required
+                   placeholder="Enter subject">
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label">Email Address</label>
+            <input type="email" name="email"
+                   class="form-control"
+                   placeholder="Enter email address">
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Save Faculty
+        </button>
+
+        <a href="{{ url_for('faculty') }}" class="btn btn-secondary">
+            Cancel
+        </a>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,96 @@
+
+{% extends "base.html" %}
+
+{% block title %}Dashboard | AttendEase{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold">Dashboard</h2>
+        <p class="text-secondary">Welcome to the Student Attendance Management System.</p>
+    </div>
+
+    <a href="{{ url_for('students') }}" class="btn btn-primary">
+        View Students
+    </a>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row g-4 mb-4">
+
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <p class="text-secondary mb-2">Total Students</p>
+            <h2>{{ total_students }}</h2>
+            <small>Registered students</small>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <p class="text-secondary mb-2">Total Faculty</p>
+            <h2>{{ total_faculty }}</h2>
+            <small>Registered faculty members</small>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <p class="text-secondary mb-2">Present Today</p>
+            <h2>{{ present_today }}</h2>
+            <small>Students marked present</small>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-3">
+        <div class="stat-card">
+            <p class="text-secondary mb-2">Attendance Rate</p>
+            <h2>{{ percentage }}%</h2>
+            <small>Today's attendance</small>
+        </div>
+    </div>
+
+</div>
+
+<!-- Quick Actions -->
+<div class="content-card">
+    <h4 class="fw-bold mb-3">Quick Actions</h4>
+
+    <div class="row g-3">
+
+        <div class="col-md-4">
+            <a href="{{ url_for('add_student') }}"
+               class="btn btn-primary w-100 p-3">
+                + Add New Student
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="{{ url_for('students') }}"
+               class="btn btn-outline-primary w-100 p-3">
+                View Student Records
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="{{ url_for('students') }}"
+               class="btn btn-outline-primary w-100 p-3">
+                Manage Students
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<div class="content-card mt-4">
+    <h4 class="fw-bold">About AttendEase</h4>
+    <p class="text-secondary mb-0">
+        AttendEase is a database-driven application designed to
+        manage student information and attendance records.
+        It provides an organised way to store, retrieve and
+        manage academic attendance data.
+    </p>
+</div>
+
+{% endblock %}

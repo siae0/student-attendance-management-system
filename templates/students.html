@@ -1,0 +1,72 @@
+
+{% extends "base.html" %}
+
+{% block title %}Students | AttendEase{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold">Student Management</h2>
+        <p class="text-secondary">View and manage student records.</p>
+    </div>
+
+    <a href="{{ url_for('add_student') }}" class="btn btn-primary">
+        + Add Student
+    </a>
+</div>
+
+<div class="content-card">
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+
+            <thead class="table-light">
+                <tr>
+                    <th>Student ID</th>
+                    <th>Roll Number</th>
+                    <th>Student Name</th>
+                    <th>Department</th>
+                    <th>Semester</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.student_id }}</td>
+                    <td>{{ student.roll_no }}</td>
+                    <td>{{ student.student_name }}</td>
+                    <td>{{ student.department }}</td>
+                    <td>{{ student.semester }}</td>
+
+                    <td>
+                        <form method="POST"
+                              action="{{ url_for('delete_student', student_id=student.student_id) }}"
+                              onsubmit="return confirm('Delete this student?');">
+
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger">
+                                Delete
+                            </button>
+
+                        </form>
+                    </td>
+                </tr>
+
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center text-secondary">
+                        No students found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

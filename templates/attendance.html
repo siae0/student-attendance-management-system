@@ -1,0 +1,109 @@
+
+{% extends "base.html" %}
+
+{% block title %}Attendance Management | AttendEase{% endblock %}
+
+{% block content %}
+
+<h2 class="fw-bold">Attendance Management</h2>
+<p class="text-secondary mb-4">Mark and manage student attendance.</p>
+
+<div class="content-card mb-4">
+    <h4 class="mb-3">Mark Attendance</h4>
+
+    <form method="POST" action="{{ url_for('attendance') }}">
+
+        <div class="row g-3">
+
+            <div class="col-md-6">
+                <label class="form-label">Select Student</label>
+                <select name="student_id" class="form-select" required>
+                    <option value="">Choose student</option>
+                    {% for s in students %}
+                    <option value="{{ s.student_id }}">
+                        {{ s.roll_no }} - {{ s.student_name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Select Faculty</label>
+                <select name="faculty_id" class="form-select" required>
+                    <option value="">Choose faculty</option>
+                    {% for f in faculty %}
+                    <option value="{{ f.faculty_id }}">
+                        {{ f.faculty_name }} - {{ f.subject }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Attendance Date</label>
+                <input type="date" name="attendance_date"
+                       class="form-control" required>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Status</label>
+                <select name="status" class="form-select" required>
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                </select>
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4">
+            Save Attendance
+        </button>
+
+    </form>
+</div>
+
+<div class="content-card">
+    <h4 class="mb-3">Attendance Records</h4>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Roll No.</th>
+                    <th>Student</th>
+                    <th>Faculty</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for a in records %}
+                <tr>
+                    <td>{{ a.attendance_id }}</td>
+                    <td>{{ a.roll_no }}</td>
+                    <td>{{ a.student_name }}</td>
+                    <td>{{ a.faculty_name }}</td>
+                    <td>{{ a.attendance_date }}</td>
+                    <td>
+                        {% if a.status == 'Present' %}
+                        <span class="badge bg-success">Present</span>
+                        {% else %}
+                        <span class="badge bg-danger">Absent</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center text-secondary">
+                        No attendance records found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
